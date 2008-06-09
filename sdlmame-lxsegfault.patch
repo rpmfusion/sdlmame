@@ -1,0 +1,13 @@
+Index: src/emu/inptport.c
+===================================================================
+--- src/emu/inptport.c	(revision 1818)
++++ src/emu/inptport.c	(working copy)
+@@ -731,6 +731,8 @@
+ 
+ const input_port_config *input_port_config_alloc(const input_port_token *tokens, char *errorbuf, int errorbuflen)
+ {
++	if (tokens == NULL)
++		return NULL;
+ 	if (errorbuf != NULL)
+ 		*errorbuf = 0;
+ 	return port_config_detokenize(NULL, tokens, errorbuf, errorbuflen);

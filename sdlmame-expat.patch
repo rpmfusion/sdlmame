@@ -1,0 +1,15 @@
+--- makefile~	2007-07-26 20:18:36.000000000 -0700
++++ makefile	2007-07-26 20:18:58.000000000 -0700
+@@ -99,10 +99,10 @@
+ # PTR64 = 1
+ 
+ # uncomment next line to build expat as part of MAME build
+-BUILD_EXPAT = 1
++# BUILD_EXPAT = 1
+ 
+ # uncomment next line to build zlib as part of MAME build
+-BUILD_ZLIB = 1
++# BUILD_ZLIB = 1
+ 
+ # uncomment next line to include the symbols
+ # SYMBOLS = 1
