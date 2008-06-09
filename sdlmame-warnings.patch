@@ -1,0 +1,11 @@
+--- makefile.warnings~	2008-02-22 05:12:07.000000000 +0100
++++ makefile	2008-02-23 10:41:00.000000000 +0100
+@@ -326,7 +326,7 @@
+ ifneq ($(OPTIMIZE),0)
+ CFLAGS += $(ARCHOPTS) -fno-strict-aliasing
+ ifneq ($(TARGETOS),os2)
+-CFLAGS += -Werror
++#CFLAGS += -Werror
+ endif
+ endif
+ 
