@@ -1,4 +1,4 @@
-%define beta 0125u4
+%define beta 0125u5
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -15,7 +15,7 @@
 
 Name:           sdlmame
 Version:        0126
-Release:        0.4.%{?beta}%{?dist}
+Release:        0.5.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -24,7 +24,6 @@ URL:            http://rbelmont.mameworld.info/?page_id=163
 Source0:        http://rbelmont.mameworld.info/%{name}%{_version}.zip
 Patch0:         %{name}-warnings.patch
 Patch1:         %{name}-expat.patch
-Patch2:         %{name}-lxsegfault.patch
 BuildRoot:      %{_tmppath}/%{name}-%{_version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  SDL-devel expat-devel zlib-devel libGL-devel gtk2-devel
@@ -69,7 +68,6 @@ Requires(hint): %{name}-debuginfo = %{version}-%{release}
 %setup -qn %{name}%{_version}
 %patch0 -p0 -b .warnings~
 %patch1 -p0 -b .expat~
-%patch2 -p0 -b .lxsegfault~
 
 # Create mame.ini file
 cat > mame.ini << EOF
@@ -181,6 +179,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jun 12 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0126-0.5.0125u5
+- Updated to 0.125u5
+- Finally dropped listxml segfault patch
+
 * Fri May 30 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0126-0.4.0125u4
 - Updated to 0.125u4
 - Patched segfault upon -lx once again
