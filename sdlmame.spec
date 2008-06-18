@@ -1,4 +1,4 @@
-%define beta 0125u5
+%define beta 0125u6
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -15,7 +15,7 @@
 
 Name:           sdlmame
 Version:        0126
-Release:        0.5.%{?beta}%{?dist}
+Release:        0.6.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -179,6 +179,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jun 18 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0126-0.6.0125u6
+- Updated to 0.125u6
+
 * Thu Jun 12 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0126-0.5.0125u5
 - Updated to 0.125u5
 - Finally dropped listxml segfault patch
