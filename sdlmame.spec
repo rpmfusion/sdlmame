@@ -1,4 +1,4 @@
-%define beta 0125u6
+%define beta 0125u8
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -15,7 +15,7 @@
 
 Name:           sdlmame
 Version:        0126
-Release:        0.6.%{?beta}%{?dist}
+Release:        0.7.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -109,7 +109,7 @@ popd
 
 
 %build
-make %{?_smp_mflags} %{?arch_flags} DEBUG=1 DEBUGGER=1 SYMBOLS=1 \
+make %{?_smp_mflags} %{?arch_flags} DEBUG=1 SYMBOLS=1 \
     OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
 make %{?_smp_mflags} %{?arch_flags} \
     OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
@@ -179,6 +179,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jun 27 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0126-0.7.0125u8
+- Updated to 0.125u8
+- Dropped DEBUGGER=1, it is default now
+
 * Wed Jun 18 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0126-0.6.0125u6
 - Updated to 0.125u6
 
