@@ -1,7 +1,7 @@
---- makefile~	2007-07-26 20:18:36.000000000 -0700
-+++ makefile	2007-07-26 20:18:58.000000000 -0700
-@@ -99,10 +99,10 @@
- # PTR64 = 1
+--- makefile.expat~	2008-07-14 10:53:06.000000000 +0200
++++ makefile	2008-07-14 10:53:06.000000000 +0200
+@@ -125,10 +125,10 @@
+ # BIGENDIAN = 1
  
  # uncomment next line to build expat as part of MAME build
 -BUILD_EXPAT = 1
