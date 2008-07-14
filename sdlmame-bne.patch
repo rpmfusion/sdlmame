@@ -1,0 +1,22 @@
+--- src/emu/eigccppc.h.bne~	2008-03-02 01:35:58.000000000 +0100
++++ src/emu/eigccppc.h	2008-07-14 12:48:03.000000000 +0200
+@@ -343,7 +343,7 @@
+ 		"   cmpd   %[compare], %[result]  \n"
+ 		"   bne    2f                     \n"
+ 		"   stdcx. %[exchange], 0, %[ptr] \n"
+-		"   bne--  1b                     \n"
++		"   bne-   1b                     \n"
+ 		"2:                                 "
+ 	  : [dummy]    "+m"  (*ptr)	/* Lets GCC know that *ptr will be read/written in case it's not marked volatile */
+ 	  , [result]   "=&r" (result)
+--- src/osd/sdl/osinline.h.bne~	2008-06-29 00:26:53.000000000 +0200
++++ src/osd/sdl/osinline.h	2008-07-14 12:48:43.000000000 +0200
+@@ -69,7 +69,7 @@
+ 	__asm__ __volatile__ (
+ 		"1: ldarx  %[ret], 0, %[ptr]      \n"
+ 		"   stdcx. %[exchange], 0, %[ptr] \n"
+-		"   bne--  1b                     \n"
++		"   bne-   1b                     \n"
+ 		: [ret]      "=&r" (ret)
+ 		: [ptr]      "r"   (ptr)
+ 		, [exchange] "r"   (exchange)
