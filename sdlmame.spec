@@ -12,10 +12,13 @@
 %ifarch ppc
 %define arch_flags BIGENDIAN=1
 %endif
+%ifarch ppc64
+%define arch_flags BIGENDIAN=1 PTR64=1
+%endif
 
 Name:           sdlmame
 Version:        0126
-Release:        1%{?beta}%{?dist}
+Release:        2%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -179,6 +182,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 14 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0126-2
+- Added ppc64 arch_flags
+
 * Mon Jul  7 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0126-1
 - Updated to 0.126
 
