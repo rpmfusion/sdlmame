@@ -12,10 +12,13 @@
 %ifarch ppc
 %define arch_flags BIGENDIAN=1
 %endif
+%ifarch ppc64
+%define arch_flags BIGENDIAN=1 PTR64=1
+%endif
 
 Name:           sdlmame
 Version:        0126
-Release:        1%{?beta}%{?dist}
+Release:        3%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -24,6 +27,7 @@ URL:            http://rbelmont.mameworld.info/?page_id=163
 Source0:        http://rbelmont.mameworld.info/%{name}%{_version}.zip
 Patch0:         %{name}-warnings.patch
 Patch1:         %{name}-expat.patch
+Patch2:         %{name}-bne.patch
 BuildRoot:      %{_tmppath}/%{name}-%{_version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  SDL-devel expat-devel zlib-devel libGL-devel gtk2-devel
@@ -68,6 +72,7 @@ Requires(hint): %{name}-debuginfo = %{version}-%{release}
 %setup -qn %{name}%{_version}
 %patch0 -p0 -b .warnings~
 %patch1 -p0 -b .expat~
+%patch2 -p0 -b .bne~
 
 # Create mame.ini file
 cat > mame.ini << EOF
@@ -179,6 +184,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 14 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0126-3
+- Patched bne-- inline assembly to allow ppc64 build
+
+* Mon Jul 14 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0126-2
+- Added ppc64 arch_flags
+
 * Mon Jul  7 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0126-1
 - Updated to 0.126
 
