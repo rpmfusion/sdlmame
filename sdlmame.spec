@@ -1,4 +1,4 @@
-#define beta 0125u8
+%define beta 0126u1
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -17,8 +17,8 @@
 %endif
 
 Name:           sdlmame
-Version:        0126
-Release:        3%{?beta}%{?dist}
+Version:        0127
+Release:        0.1.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -184,6 +184,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 17 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0127-0.1.0126u1
+- Updated to 0.126u1
+
 * Mon Jul 14 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0126-3
 - Patched bne-- inline assembly to allow ppc64 build
 
