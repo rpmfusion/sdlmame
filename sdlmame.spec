@@ -18,7 +18,7 @@
 
 Name:           sdlmame
 Version:        0127
-Release:        0.1.%{?beta}%{?dist}
+Release:        0.2.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -184,6 +184,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 30 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info - 0127-0.2.0126u1
+- rebuild for buildsys cflags issue
+
 * Thu Jul 17 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0127-0.1.0126u1
 - Updated to 0.126u1
 
