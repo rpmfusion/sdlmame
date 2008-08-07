@@ -1,4 +1,4 @@
-%define beta 0126u3
+%define beta 0126u4
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -18,7 +18,7 @@
 
 Name:           sdlmame
 Version:        0127
-Release:        0.3.%{?beta}%{?dist}
+Release:        0.4.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -147,7 +147,7 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.mame/sta
 # install binaries and config files
 install -pm 644 mame.ini $RPM_BUILD_ROOT%{_sysconfdir}/mame
 install -pm 644 keymaps/* $RPM_BUILD_ROOT%{_datadir}/mame/keymaps
-install -pm 755 chdman jedutil makemeta mame mamed regrep romcmp runtest \
+install -pm 755 chdman jedutil ldverify mame mamed regrep romcmp runtest \
     src2html srcclean testkeys $RPM_BUILD_ROOT%{_bindir}
 
 
@@ -169,7 +169,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/license.txt
 %{_bindir}/chdman
 %{_bindir}/jedutil
-%{_bindir}/makemeta
+%{_bindir}/ldverify
 %{_bindir}/regrep
 %{_bindir}/romcmp
 %{_bindir}/runtest
@@ -184,6 +184,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Aug  7 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0127-0.4.0126u4
+- Updated to 0.126u4
+- Added ldverify, dropped makemeta
+
 * Thu Jul 31 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0127-0.3.0126u3
 - Updated to 0.126u3
 
