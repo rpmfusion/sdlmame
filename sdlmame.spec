@@ -1,4 +1,4 @@
-#define beta .0126u5
+%define beta 0127u1
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -17,8 +17,8 @@
 %endif
 
 Name:           sdlmame
-Version:        0127
-Release:        1%{?beta}%{?dist}
+Version:        0128
+Release:        0.1.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -67,6 +67,13 @@ Requires(hint): %{name}-debuginfo = %{version}-%{release}
 %description debug
 %{summary}.
 
+%package ldplayer
+Summary:        Standalone laserdisc player based on sdlmame
+Group:          Applications/Emulators
+
+%description ldplayer
+%{summary}.
+
 
 %prep
 %setup -qn %{name}%{_version}
@@ -82,7 +89,7 @@ ctrlrpath          %{_datadir}/mame/ctrlr
 fontpath           %{_datadir}/mame/fonts
 rompath            %{_datadir}/mame/roms;%{_datadir}/mame/chds
 samplepath         %{_datadir}/mame/samples
-cheat_file         %{_datadir}/mame/cheat.dat
+cheatpath          %{_datadir}/mame/cheats
 
 # Allow user to override ini settings
 inipath            \$HOME/.mame/ini;%{_sysconfdir}/mame
@@ -118,6 +125,8 @@ make %{?_smp_mflags} %{?arch_flags} DEBUG=1 SYMBOLS=1 \
     OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
 make %{?_smp_mflags} %{?arch_flags} \
     OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
+make %{?_smp_mflags} %{?arch_flags} TARGET=ldplayer \
+    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
 
 
 %install
@@ -133,6 +142,7 @@ install -d $RPM_BUILD_ROOT%{_datadir}/mame/fonts
 install -d $RPM_BUILD_ROOT%{_datadir}/mame/keymaps
 install -d $RPM_BUILD_ROOT%{_datadir}/mame/roms
 install -d $RPM_BUILD_ROOT%{_datadir}/mame/samples
+install -d $RPM_BUILD_ROOT%{_datadir}/mame/cheats
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/mame
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.mame/cfg
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.mame/comments
@@ -182,8 +192,17 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/license.txt
 %{_bindir}/mamed
 
+%files ldplayer
+%defattr(-,root,root,-)
+%doc docs/license.txt
+%{_bindir}/ldplayer
 
 %changelog
+* Sat Aug 30 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0128-0.1.0127u1
+- Updated to 0.121u1
+- Dropped cheat_file and added cheatpath to the default ini
+- Added -ldplayer subpackage containing the standalone laserdisc player
+
 * Tue Aug 19 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0127-1
 - Updated to 0.127
 
