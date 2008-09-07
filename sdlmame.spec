@@ -1,4 +1,4 @@
-%define beta 0127u1
+%define beta 0127u2
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -18,7 +18,7 @@
 
 Name:           sdlmame
 Version:        0128
-Release:        0.1.%{?beta}%{?dist}
+Release:        0.2.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -198,8 +198,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/ldplayer
 
 %changelog
+* Sun Sep 7  2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0128-0.2.0127u2
+- Updated to 0.127u2
+
 * Sat Aug 30 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0128-0.1.0127u1
-- Updated to 0.121u1
+- Updated to 0.127u1
 - Dropped cheat_file and added cheatpath to the default ini
 - Added -ldplayer subpackage containing the standalone laserdisc player
 
