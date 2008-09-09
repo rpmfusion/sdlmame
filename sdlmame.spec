@@ -157,8 +157,8 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.mame/sta
 # install binaries and config files
 install -pm 644 mame.ini $RPM_BUILD_ROOT%{_sysconfdir}/mame
 install -pm 644 keymaps/* $RPM_BUILD_ROOT%{_datadir}/mame/keymaps
-install -pm 755 chdman jedutil ldverify mame mamed regrep romcmp runtest \
-    src2html srcclean testkeys $RPM_BUILD_ROOT%{_bindir}
+install -pm 755 chdman jedutil ldplayer ldverify mame mamed regrep romcmp \
+    runtest src2html srcclean testkeys $RPM_BUILD_ROOT%{_bindir}
 
 
 %clean
