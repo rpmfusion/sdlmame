@@ -62,7 +62,6 @@ Requires:       %{name} = %{version}-%{release}
 %package debug
 Summary:        Debug enabled version of sdlmame
 Group:          Applications/Emulators
-Requires(hint): %{name}-debuginfo = %{version}-%{release}
 
 %description debug
 %{summary}.
