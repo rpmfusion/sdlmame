@@ -1,4 +1,4 @@
-%define beta 0128u1
+%define beta 0128u2
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -18,7 +18,7 @@
 
 Name:           sdlmame
 Version:        0129
-Release:        0.1.%{?beta}%{?dist}
+Release:        0.2.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -28,6 +28,7 @@ Source0:        http://rbelmont.mameworld.info/%{name}%{_version}.zip
 Patch0:         %{name}-warnings.patch
 Patch1:         %{name}-expat.patch
 Patch2:         %{name}-bne.patch
+Patch3:         %{name}-fortify.patch
 BuildRoot:      %{_tmppath}/%{name}-%{_version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  SDL-devel expat-devel zlib-devel libGL-devel gtk2-devel
@@ -79,6 +80,7 @@ Group:          Applications/Emulators
 %patch0 -p0 -b .warnings~
 %patch1 -p0 -b .expat~
 %patch2 -p0 -b .bne~
+%patch3 -p0 -b .fortify
 
 # Create mame.ini file
 cat > mame.ini << EOF
@@ -197,6 +199,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/ldplayer
 
 %changelog
+* Sun Nov  2 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0129-0.2.0128u2
+- Updated to 0.128u2
+- Added patch disabling undefining _FORITFY_SOURCE
+
 * Fri Oct 24 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0129-0.1.0128u1
 - Updated to 0.128u1
 
