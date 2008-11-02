@@ -1,0 +1,15 @@
+--- src/osd/sdl/sdlprefix.h.fortify	2008-10-31 03:48:33.000000000 +0100
++++ src/osd/sdl/sdlprefix.h	2008-11-02 11:20:37.000000000 +0100
+@@ -35,9 +35,9 @@
+ #endif
+ 
+ // fix for Ubuntu 8.10
+-#ifdef _FORTIFY_SOURCE
+-#undef _FORTIFY_SOURCE
+-#endif
++// #ifdef _FORTIFY_SOURCE
++// #undef _FORTIFY_SOURCE
++// #endif
+ 
+ #endif /* SDLMAME_UNIX */
+ 
