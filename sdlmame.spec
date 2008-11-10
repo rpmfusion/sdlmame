@@ -1,4 +1,4 @@
-%define beta 0128u2
+%define beta 0128u3
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -18,7 +18,7 @@
 
 Name:           sdlmame
 Version:        0129
-Release:        0.2.%{?beta}%{?dist}
+Release:        0.3.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -199,9 +199,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/ldplayer
 
 %changelog
+* Mon Nov 10 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0129-0.3.0128u3
+- Updated to 0.128u3
+- Fixed typo in %%changelog
+
 * Sun Nov  2 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0129-0.2.0128u2
 - Updated to 0.128u2
-- Added patch disabling undefining _FORITFY_SOURCE
+- Added patch disabling undefining _FORTIFY_SOURCE
 
 * Fri Oct 24 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0129-0.1.0128u1
 - Updated to 0.128u1
