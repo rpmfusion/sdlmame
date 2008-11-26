@@ -1,4 +1,4 @@
-%define beta 0128u3
+%define beta 0128u4
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -18,7 +18,7 @@
 
 Name:           sdlmame
 Version:        0129
-Release:        0.3.%{?beta}%{?dist}
+Release:        0.4.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -198,7 +198,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/license.txt
 %{_bindir}/ldplayer
 
+
 %changelog
+* Mon Nov 24 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0129-0.4.0128u4
+- Updated to 0.128u4
+
 * Mon Nov 10 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0129-0.3.0128u3
 - Updated to 0.128u3
 - Fixed typo in %%changelog
