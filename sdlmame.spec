@@ -1,4 +1,4 @@
-%define beta 0128u6
+%define beta 0128u7
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -18,7 +18,7 @@
 
 Name:           sdlmame
 Version:        0129
-Release:        0.6.%{?beta}%{?dist}
+Release:        0.7.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -67,12 +67,12 @@ Group:          Applications/Emulators
 %description debug
 %{summary}.
 
-%package ldplayer
-Summary:        Standalone laserdisc player based on sdlmame
-Group:          Applications/Emulators
+#%package ldplayer
+#Summary:        Standalone laserdisc player based on sdlmame
+#Group:          Applications/Emulators
 
-%description ldplayer
-%{summary}.
+#%description ldplayer
+#%{summary}.
 
 
 %prep
@@ -122,11 +122,11 @@ popd
 
 
 %build
+#make %{?_smp_mflags} %{?arch_flags} TARGET=ldplayer SYMBOLS=1\
+#    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
 make %{?_smp_mflags} %{?arch_flags} DEBUG=1 SYMBOLS=1 \
     OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
-make %{?_smp_mflags} %{?arch_flags} \
-    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
-make %{?_smp_mflags} %{?arch_flags} TARGET=ldplayer \
+make %{?_smp_mflags} %{?arch_flags} SYMBOLS=1\
     OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
 
 
@@ -158,8 +158,12 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.mame/sta
 # install binaries and config files
 install -pm 644 mame.ini $RPM_BUILD_ROOT%{_sysconfdir}/mame
 install -pm 644 keymaps/* $RPM_BUILD_ROOT%{_datadir}/mame/keymaps
-install -pm 755 chdman jedutil ldplayer ldverify mame mamed regrep romcmp \
-    runtest src2html srcclean testkeys $RPM_BUILD_ROOT%{_bindir}
+install -pm 755 chdman jedutil ldresample ldverify mame mamed romcmp \
+    testkeys $RPM_BUILD_ROOT%{_bindir}
+for tool in regrep runtest src2html srcclean
+do
+install -pm 755 $tool $RPM_BUILD_ROOT%{_bindir}/mame-$tool
+done
 
 
 %clean
@@ -180,12 +184,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/license.txt
 %{_bindir}/chdman
 %{_bindir}/jedutil
+%{_bindir}/ldresample
 %{_bindir}/ldverify
-%{_bindir}/regrep
+%{_bindir}/mame-regrep
 %{_bindir}/romcmp
-%{_bindir}/runtest
-%{_bindir}/src2html
-%{_bindir}/srcclean
+%{_bindir}/mame-runtest
+%{_bindir}/mame-src2html
+%{_bindir}/mame-srcclean
 %{_bindir}/testkeys
 
 %files debug
@@ -193,13 +198,20 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/license.txt
 %{_bindir}/mamed
 
-%files ldplayer
-%defattr(-,root,root,-)
-%doc docs/license.txt
-%{_bindir}/ldplayer
+#%files ldplayer
+#%defattr(-,root,root,-)
+#%doc docs/license.txt
+#%{_bindir}/ldplayer
 
 
 %changelog
+* Mon Dec 22 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0129-0.7.0128u7
+- Updated to 0.128u7
+- Enabled symbols in all builds
+- Added mame prefix to ambiguously named tools
+- Added ldresample tool
+- Disabled ldplayer temporarily
+
 * Mon Dec 15 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0129-0.6.0128u6
 - Updated to 0.128u6
 
