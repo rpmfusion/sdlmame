@@ -1,4 +1,4 @@
-%define beta 0128u7
+#define beta 0128u7
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -18,13 +18,15 @@
 
 Name:           sdlmame
 Version:        0129
-Release:        0.7.%{?beta}%{?dist}
+Release:        1%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
 License:        MAME License
 URL:            http://rbelmont.mameworld.info/?page_id=163
 Source0:        http://rbelmont.mameworld.info/%{name}%{_version}.zip
+#ui.bdc generated from ui.bdf
+Source1:        ui.bdc
 Patch0:         %{name}-warnings.patch
 Patch1:         %{name}-expat.patch
 Patch2:         %{name}-bne.patch
@@ -67,12 +69,12 @@ Group:          Applications/Emulators
 %description debug
 %{summary}.
 
-#%package ldplayer
-#Summary:        Standalone laserdisc player based on sdlmame
-#Group:          Applications/Emulators
+%package ldplayer
+Summary:        Standalone laserdisc player based on sdlmame
+Group:          Applications/Emulators
 
-#%description ldplayer
-#%{summary}.
+%description ldplayer
+%{summary}.
 
 
 %prep
@@ -122,11 +124,11 @@ popd
 
 
 %build
-#make %{?_smp_mflags} %{?arch_flags} TARGET=ldplayer SYMBOLS=1\
-#    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
-make %{?_smp_mflags} %{?arch_flags} DEBUG=1 SYMBOLS=1 \
+make %{?_smp_mflags} %{?arch_flags} TARGET=ldplayer SYMBOLS=1 OPTIMIZE=2\
     OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
-make %{?_smp_mflags} %{?arch_flags} SYMBOLS=1\
+make %{?_smp_mflags} %{?arch_flags} DEBUG=1 SYMBOLS=1 OPTIMIZE=2\
+    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
+make %{?_smp_mflags} %{?arch_flags} SYMBOLS=1 OPTIMIZE=2\
     OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
 
 
@@ -158,7 +160,8 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.mame/sta
 # install binaries and config files
 install -pm 644 mame.ini $RPM_BUILD_ROOT%{_sysconfdir}/mame
 install -pm 644 keymaps/* $RPM_BUILD_ROOT%{_datadir}/mame/keymaps
-install -pm 755 chdman jedutil ldresample ldverify mame mamed romcmp \
+install -pm 644 ui.bdf %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/mame/fonts
+install -pm 755 chdman jedutil ldplayer ldresample ldverify mame mamed romcmp \
     testkeys $RPM_BUILD_ROOT%{_bindir}
 for tool in regrep runtest src2html srcclean
 do
@@ -198,13 +201,19 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/license.txt
 %{_bindir}/mamed
 
-#%files ldplayer
-#%defattr(-,root,root,-)
-#%doc docs/license.txt
-#%{_bindir}/ldplayer
+%files ldplayer
+%defattr(-,root,root,-)
+%doc docs/license.txt
+%{_bindir}/ldplayer
 
 
 %changelog
+* Mon Jan  5 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0129-1
+- Updated to 0.129
+- Re-enabled ldplayer
+- Added OPTIMIZE=2 to all builds since makefile seems to override OPT_FLAGS
+- Install ui.bdf and pre-generated ui.bdc to %%{_datadir}/mame/fonts
+
 * Mon Dec 22 2008 Julian Sikorski <belegdol[at]gmail[dot]com> - 0129-0.7.0128u7
 - Updated to 0.128u7
 - Enabled symbols in all builds
