@@ -31,6 +31,7 @@ Patch0:         %{name}-warnings.patch
 Patch1:         %{name}-expat.patch
 Patch2:         %{name}-bne.patch
 Patch3:         %{name}-fortify.patch
+Patch4:         sdlmame-0129u1-ppc.patch
 BuildRoot:      %{_tmppath}/%{name}-%{_version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  SDL-devel expat-devel zlib-devel libGL-devel gtk2-devel
@@ -83,6 +84,7 @@ Group:          Applications/Emulators
 %patch1 -p0 -b .expat~
 %patch2 -p0 -b .bne~
 %patch3 -p0 -b .fortify
+%patch4 -p0 -b .ppc
 
 # Create mame.ini file
 cat > mame.ini << EOF
