@@ -1,4 +1,4 @@
-%define beta 0129u1
+%define beta 0129u2
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -18,7 +18,7 @@
 
 Name:           sdlmame
 Version:        0130
-Release:        0.1.%{?beta}%{?dist}
+Release:        0.2.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -31,7 +31,6 @@ Patch0:         %{name}-warnings.patch
 Patch1:         %{name}-expat.patch
 Patch2:         %{name}-bne.patch
 Patch3:         %{name}-fortify.patch
-Patch4:         sdlmame-0129u1-ppc.patch
 BuildRoot:      %{_tmppath}/%{name}-%{_version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  SDL-devel expat-devel zlib-devel libGL-devel gtk2-devel
@@ -84,7 +83,6 @@ Group:          Applications/Emulators
 %patch1 -p0 -b .expat~
 %patch2 -p0 -b .bne~
 %patch3 -p0 -b .fortify
-%patch4 -p0 -b .ppc
 
 # Create mame.ini file
 cat > mame.ini << EOF
@@ -210,6 +208,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jan 22 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0130-0.2.0129u2
+- Updated to 0.129u2
+- Removed the upstreamed ppc patch
+
 * Thu Jan 15 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0130-0.1.0129u1
 - Updated to 0.129u1
 
