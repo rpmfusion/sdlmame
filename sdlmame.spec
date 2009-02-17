@@ -34,7 +34,7 @@ Patch3:         %{name}-fortify.patch
 BuildRoot:      %{_tmppath}/%{name}-%{_version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  SDL-devel expat-devel zlib-devel libGL-devel gtk2-devel
-BuildRequires:  GConf2-devel
+BuildRequires:  GConf2-devel dbus-devel
 
 %description
 MAME stands for Multiple Arcade Machine Emulator.  When used in conjunction
