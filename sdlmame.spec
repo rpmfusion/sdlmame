@@ -31,11 +31,10 @@ Patch0:         %{name}-warnings.patch
 Patch1:         %{name}-expat.patch
 Patch2:         %{name}-bne.patch
 Patch3:         %{name}-fortify.patch
-Patch4:         sdlmame-0.129u4-gcc44.patch
 BuildRoot:      %{_tmppath}/%{name}-%{_version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  SDL-devel expat-devel zlib-devel libGL-devel gtk2-devel
-BuildRequires:  GConf2-devel
+BuildRequires:  GConf2-devel dbus-devel
 
 %description
 MAME stands for Multiple Arcade Machine Emulator.  When used in conjunction
@@ -84,7 +83,6 @@ Group:          Applications/Emulators
 %patch1 -p0 -b .expat~
 %patch2 -p0 -b .bne~
 %patch3 -p0 -b .fortify
-%patch4 -p0 -b .gcc44
 
 # Create mame.ini file
 cat > mame.ini << EOF
@@ -221,7 +219,6 @@ rm -rf $RPM_BUILD_ROOT
 
 * Tue Feb 17 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0130-0.4.0129u4
 - Updated to 0.129u4
-- Fixed building with gcc-4.4
 
 * Fri Jan 30 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0130-0.3.0129u3
 - Updated to 0.129u3
