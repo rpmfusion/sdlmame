@@ -1,4 +1,4 @@
-%define beta 0129u4
+%define beta 0129u5
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -18,7 +18,7 @@
 
 Name:           sdlmame
 Version:        0130
-Release:        0.4.%{?beta}%{?dist}
+Release:        0.5.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -31,10 +31,11 @@ Patch0:         %{name}-warnings.patch
 Patch1:         %{name}-expat.patch
 Patch2:         %{name}-bne.patch
 Patch3:         %{name}-fortify.patch
+Patch4:         sdlmame-0.129u4-gcc44.patch
 BuildRoot:      %{_tmppath}/%{name}-%{_version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  SDL-devel expat-devel zlib-devel libGL-devel gtk2-devel
-BuildRequires:  GConf2-devel dbus-devel
+BuildRequires:  GConf2-devel
 
 %description
 MAME stands for Multiple Arcade Machine Emulator.  When used in conjunction
@@ -83,6 +84,7 @@ Group:          Applications/Emulators
 %patch1 -p0 -b .expat~
 %patch2 -p0 -b .bne~
 %patch3 -p0 -b .fortify
+%patch4 -p0 -b .gcc44
 
 # Create mame.ini file
 cat > mame.ini << EOF
@@ -116,6 +118,10 @@ EOF
 # Fix end-of-line encoding
 sed -i 's/\r//' whatsnew.txt
 
+#Fix whatsnew.txt encoding
+/usr/bin/iconv -f iso8859-1 -t utf-8 whatsnew.txt > whatsnew.txt.conv
+/bin/mv -f whatsnew.txt.conv whatsnew.txt
+
 #Fix newvideo.txt encoding
 pushd docs
 /usr/bin/iconv -f cp1250 -t utf-8 newvideo.txt > newvideo.txt.conv
@@ -125,11 +131,11 @@ popd
 
 %build
 make %{?_smp_mflags} %{?arch_flags} TARGET=ldplayer SYMBOLS=1 OPTIMIZE=2\
-    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
+    OPT_FLAGS='$RPM_OPT_FLAGS -DINI_PATH="\"%{_sysconfdir}/mame;\""'
 make %{?_smp_mflags} %{?arch_flags} DEBUG=1 SYMBOLS=1 OPTIMIZE=2\
-    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
+    OPT_FLAGS='$RPM_OPT_FLAGS -DINI_PATH="\"%{_sysconfdir}/mame;\""'
 make %{?_smp_mflags} %{?arch_flags} SYMBOLS=1 OPTIMIZE=2\
-    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
+    OPT_FLAGS='$RPM_OPT_FLAGS -DINI_PATH="\"%{_sysconfdir}/mame;\""'
 
 
 %install
@@ -208,8 +214,14 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Feb 26 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0130-0.5.0129u5
+- Updated to 0.129u4
+- Use macros consistently
+- Fixed whatsnew.txt encoding
+
 * Tue Feb 17 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0130-0.4.0129u4
 - Updated to 0.129u4
+- Fixed building with gcc-4.4
 
 * Fri Jan 30 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0130-0.3.0129u3
 - Updated to 0.129u3
