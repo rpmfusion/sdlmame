@@ -129,52 +129,52 @@ popd
 
 %build
 make %{?_smp_mflags} %{?arch_flags} TARGET=ldplayer SYMBOLS=1 OPTIMIZE=2\
-    OPT_FLAGS='$RPM_OPT_FLAGS -DINI_PATH="\"%{_sysconfdir}/mame;\""'
+    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
 make %{?_smp_mflags} %{?arch_flags} DEBUG=1 SYMBOLS=1 OPTIMIZE=2\
-    OPT_FLAGS='$RPM_OPT_FLAGS -DINI_PATH="\"%{_sysconfdir}/mame;\""'
+    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
 make %{?_smp_mflags} %{?arch_flags} SYMBOLS=1 OPTIMIZE=2\
-    OPT_FLAGS='$RPM_OPT_FLAGS -DINI_PATH="\"%{_sysconfdir}/mame;\""'
+    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 # create directories
-install -d $RPM_BUILD_ROOT%{_bindir}
-install -d $RPM_BUILD_ROOT%{_datadir}/mame/artwork
-install -d $RPM_BUILD_ROOT%{_datadir}/mame/chds
-install -d $RPM_BUILD_ROOT%{_datadir}/mame/ctrlr
-install -d $RPM_BUILD_ROOT%{_datadir}/mame/effects
-install -d $RPM_BUILD_ROOT%{_datadir}/mame/fonts
-install -d $RPM_BUILD_ROOT%{_datadir}/mame/keymaps
-install -d $RPM_BUILD_ROOT%{_datadir}/mame/roms
-install -d $RPM_BUILD_ROOT%{_datadir}/mame/samples
-install -d $RPM_BUILD_ROOT%{_datadir}/mame/cheats
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/mame
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.mame/cfg
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.mame/comments
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.mame/diff
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.mame/ini
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.mame/inp
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.mame/memcard
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.mame/nvram
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.mame/snap
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/skel/.mame/sta
+install -d %{buildroot}%{_bindir}
+install -d %{buildroot}%{_datadir}/mame/artwork
+install -d %{buildroot}%{_datadir}/mame/chds
+install -d %{buildroot}%{_datadir}/mame/ctrlr
+install -d %{buildroot}%{_datadir}/mame/effects
+install -d %{buildroot}%{_datadir}/mame/fonts
+install -d %{buildroot}%{_datadir}/mame/keymaps
+install -d %{buildroot}%{_datadir}/mame/roms
+install -d %{buildroot}%{_datadir}/mame/samples
+install -d %{buildroot}%{_datadir}/mame/cheats
+install -d %{buildroot}%{_sysconfdir}/mame
+install -d %{buildroot}%{_sysconfdir}/skel/.mame/cfg
+install -d %{buildroot}%{_sysconfdir}/skel/.mame/comments
+install -d %{buildroot}%{_sysconfdir}/skel/.mame/diff
+install -d %{buildroot}%{_sysconfdir}/skel/.mame/ini
+install -d %{buildroot}%{_sysconfdir}/skel/.mame/inp
+install -d %{buildroot}%{_sysconfdir}/skel/.mame/memcard
+install -d %{buildroot}%{_sysconfdir}/skel/.mame/nvram
+install -d %{buildroot}%{_sysconfdir}/skel/.mame/snap
+install -d %{buildroot}%{_sysconfdir}/skel/.mame/sta
 
 # install binaries and config files
-install -pm 644 mame.ini $RPM_BUILD_ROOT%{_sysconfdir}/mame
-install -pm 644 keymaps/* $RPM_BUILD_ROOT%{_datadir}/mame/keymaps
-install -pm 644 ui.bdf %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/mame/fonts
+install -pm 644 mame.ini %{buildroot}%{_sysconfdir}/mame
+install -pm 644 keymaps/* %{buildroot}%{_datadir}/mame/keymaps
+install -pm 644 ui.bdf %{SOURCE1} %{buildroot}%{_datadir}/mame/fonts
 install -pm 755 chdman jedutil ldplayer ldresample ldverify mame mamed romcmp \
-    testkeys $RPM_BUILD_ROOT%{_bindir}
+    testkeys %{buildroot}%{_bindir}
 for tool in regrep runtest src2html srcclean
 do
-install -pm 755 $tool $RPM_BUILD_ROOT%{_bindir}/mame-$tool
+install -pm 755 $tool %{buildroot}%{_bindir}/mame-$tool
 done
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 
 %files
@@ -213,7 +213,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Thu Feb 26 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0130-0.5.0129u5
-- Updated to 0.129u4
+- Updated to 0.129u5
 - Use macros consistently
 - Fixed whatsnew.txt encoding
 
