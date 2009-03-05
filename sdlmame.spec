@@ -215,6 +215,7 @@ rm -rf %{buildroot}
 * Thu Mar 05 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0130-0.6.0129u6
 - Updated to 0.129u6
 - Dropped the upstreamed gcc-4.4 fix
+- Updated the warnings patch
 
 * Thu Feb 26 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0130-0.5.0129u5
 - Updated to 0.129u5

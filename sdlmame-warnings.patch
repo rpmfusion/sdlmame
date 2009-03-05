@@ -1,11 +1,11 @@
---- makefile.warnings~	2008-02-22 05:12:07.000000000 +0100
-+++ makefile	2008-02-23 10:41:00.000000000 +0100
-@@ -326,7 +326,7 @@
+--- makefile.warnings~	2009-03-05 15:16:35.000000000 +0100
++++ makefile	2009-03-05 20:20:18.000000000 +0100
+@@ -337,7 +337,7 @@
+ # and make all errors into warnings
  ifneq ($(OPTIMIZE),0)
- CFLAGS += $(ARCHOPTS) -fno-strict-aliasing
  ifneq ($(TARGETOS),os2)
--CFLAGS += -Werror
-+#CFLAGS += -Werror
+-CCOMFLAGS += -Werror -fno-strict-aliasing $(ARCHOPTS)
++CCOMFLAGS += -fno-strict-aliasing $(ARCHOPTS)
+ else
+ CCOMFLAGS += -fno-strict-aliasing $(ARCHOPTS)
  endif
- endif
- 
