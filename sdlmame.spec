@@ -1,4 +1,4 @@
-%define beta 0129u5
+%define beta 0129u6
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -18,7 +18,7 @@
 
 Name:           sdlmame
 Version:        0130
-Release:        0.5.%{?beta}%{?dist}
+Release:        0.6.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -31,7 +31,6 @@ Patch0:         %{name}-warnings.patch
 Patch1:         %{name}-expat.patch
 Patch2:         %{name}-bne.patch
 Patch3:         %{name}-fortify.patch
-Patch4:         sdlmame-0.129u4-gcc44.patch
 BuildRoot:      %{_tmppath}/%{name}-%{_version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  SDL-devel expat-devel zlib-devel libGL-devel gtk2-devel
@@ -84,7 +83,6 @@ Group:          Applications/Emulators
 %patch1 -p0 -b .expat~
 %patch2 -p0 -b .bne~
 %patch3 -p0 -b .fortify
-%patch4 -p0 -b .gcc44
 
 # Create mame.ini file
 cat > mame.ini << EOF
@@ -214,6 +212,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Mar 05 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0130-0.6.0129u6
+- Updated to 0.129u6
+- Dropped the upstreamed gcc-4.4 fix
+
 * Thu Feb 26 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0130-0.5.0129u5
 - Updated to 0.129u5
 - Use macros consistently
