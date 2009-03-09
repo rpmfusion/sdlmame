@@ -1,4 +1,4 @@
-%define beta 0129u6
+#define beta 0129u6
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -18,7 +18,7 @@
 
 Name:           sdlmame
 Version:        0130
-Release:        0.6.%{?beta}%{?dist}
+Release:        1%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -212,6 +212,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Mar 09 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0130-1
+- Updated to 0.130
+
 * Thu Mar 05 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0130-0.6.0129u6
 - Updated to 0.129u6
 - Dropped the upstreamed gcc-4.4 fix
