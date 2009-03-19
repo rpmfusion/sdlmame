@@ -1,4 +1,4 @@
-#define beta 0129u6
+%define beta 0130u1
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -17,8 +17,8 @@
 %endif
 
 Name:           sdlmame
-Version:        0130
-Release:        1%{?beta}%{?dist}
+Version:        0131
+Release:        0.1.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -29,12 +29,14 @@ Source0:        http://rbelmont.mameworld.info/%{name}%{_version}.zip
 Source1:        ui.bdc
 Patch0:         %{name}-warnings.patch
 Patch1:         %{name}-expat.patch
-Patch2:         %{name}-bne.patch
 Patch3:         %{name}-fortify.patch
 BuildRoot:      %{_tmppath}/%{name}-%{_version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  SDL-devel expat-devel zlib-devel libGL-devel gtk2-devel
 BuildRequires:  GConf2-devel
+%if 0%{?fedora} == 10
+BuildRequires:  dbus-devel
+%endif
 
 %description
 MAME stands for Multiple Arcade Machine Emulator.  When used in conjunction
@@ -81,7 +83,6 @@ Group:          Applications/Emulators
 %setup -qn %{name}%{_version}
 %patch0 -p0 -b .warnings~
 %patch1 -p0 -b .expat~
-%patch2 -p0 -b .bne~
 %patch3 -p0 -b .fortify
 
 # Create mame.ini file
@@ -212,6 +213,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Mar 19 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0131-0.1.0130u1
+- Updated to 0.130u1
+- Conditionalised the Fedora 10 pkgconfig fix
+- Dropped the upstreamed bne patch
+
 * Mon Mar 09 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0130-1
 - Updated to 0.130
 
