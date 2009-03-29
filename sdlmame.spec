@@ -1,4 +1,4 @@
-%define beta 0130u1
+%define beta 0130u2
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -18,7 +18,7 @@
 
 Name:           sdlmame
 Version:        0131
-Release:        0.1.%{?beta}%{?dist}
+Release:        0.2.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -213,6 +213,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Mar 29 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0131-0.2.0130u2
+- Updated to 0.130u2
+
 * Tue Mar 19 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0131-0.1.0130u1
 - Updated to 0.130u1
 - Conditionalised the Fedora 10 pkgconfig fix
