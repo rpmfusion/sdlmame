@@ -1,4 +1,4 @@
-%define beta 0130u2
+%define beta 0130u3
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -18,7 +18,7 @@
 
 Name:           sdlmame
 Version:        0131
-Release:        0.2.%{?beta}%{?dist}
+Release:        0.4.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -213,6 +213,12 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Apr 10 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0131-0.4.0130u3
+- Updated to 0.130u3
+
+* Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0131-0.3.0130u2
+- rebuild for new F11 features
+
 * Sun Mar 29 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0131-0.2.0130u2
 - Updated to 0.130u2
 
