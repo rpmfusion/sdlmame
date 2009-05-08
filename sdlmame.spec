@@ -1,4 +1,4 @@
-#define beta 0130u4
+%define beta 0131u1
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -17,8 +17,8 @@
 %endif
 
 Name:           sdlmame
-Version:        0131
-Release:        1%{?beta}%{?dist}
+Version:        0132
+Release:        0.1.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -213,6 +213,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu May 07 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0132-0.1.0131u1
+- Updated to 0.131u1
+
 * Wed Apr 23 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0131-1
 - Updated to 0.131
 
