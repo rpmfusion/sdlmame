@@ -1,4 +1,4 @@
-#define beta 0131u4
+%define beta 0132u2
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -17,8 +17,8 @@
 %endif
 
 Name:           sdlmame
-Version:        0132
-Release:        1%{?beta}%{?dist}
+Version:        0133
+Release:        0.2.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -114,19 +114,6 @@ autosave           1
 joystick           1
 EOF
 
-# Fix end-of-line encoding
-sed -i 's/\r//' whatsnew.txt
-
-#Fix whatsnew.txt encoding
-/usr/bin/iconv -f iso8859-1 -t utf-8 whatsnew.txt > whatsnew.txt.conv
-/bin/mv -f whatsnew.txt.conv whatsnew.txt
-
-#Fix newvideo.txt encoding
-pushd docs
-/usr/bin/iconv -f cp1250 -t utf-8 newvideo.txt > newvideo.txt.conv
-/bin/mv -f newvideo.txt.conv newvideo.txt
-popd
-
 
 %build
 make %{?_smp_mflags} %{?arch_flags} TARGET=ldplayer SYMBOLS=1 OPTIMIZE=2\
@@ -213,6 +200,14 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Jun 26 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0133-0.2.0132u2
+- Updated to 0.132u2
+
+* Thu Jun 18 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0133-0.1.0132u1
+- Updated to 0.132u1
+- Updated the warnings patch
+- Dropped the no longer necessary line ending and encoding fixes
+
 * Mon Jun 08 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0132-1
 - Updated to 0.132
 
