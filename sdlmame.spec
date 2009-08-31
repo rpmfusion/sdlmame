@@ -116,8 +116,8 @@ EOF
 
 
 %build
-make %{?_smp_mflags} %{?arch_flags} TARGET=ldplayer SYMBOLS=1 OPTIMIZE=2\
-    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
+#make %{?_smp_mflags} %{?arch_flags} TARGET=ldplayer SYMBOLS=1 OPTIMIZE=2\
+#    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
 make %{?_smp_mflags} %{?arch_flags} DEBUG=1 SYMBOLS=1 OPTIMIZE=2\
     OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
 make %{?_smp_mflags} %{?arch_flags} SYMBOLS=1 OPTIMIZE=2\
@@ -153,7 +153,7 @@ install -d %{buildroot}%{_sysconfdir}/skel/.mame/sta
 install -pm 644 mame.ini %{buildroot}%{_sysconfdir}/mame
 install -pm 644 keymaps/* %{buildroot}%{_datadir}/mame/keymaps
 install -pm 644 ui.bdf %{SOURCE1} %{buildroot}%{_datadir}/mame/fonts
-install -pm 755 chdman jedutil ldplayer ldresample ldverify mame mamed romcmp \
+install -pm 755 chdman jedutil ldresample ldverify mame mamed romcmp \
     testkeys unidasm %{buildroot}%{_bindir}
 for tool in regrep runtest src2html srcclean
 do
@@ -193,16 +193,17 @@ rm -rf %{buildroot}
 %doc docs/license.txt
 %{_bindir}/mamed
 
-%files ldplayer
-%defattr(-,root,root,-)
-%doc docs/license.txt
-%{_bindir}/ldplayer
+#%files ldplayer
+#%defattr(-,root,root,-)
+#%doc docs/license.txt
+#%{_bindir}/ldplayer
 
 
 %changelog
 * Mon Aug 31 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0134-0.3.0133u4
 - Updated to 0.133u4
 - Added unidasm to the -tools subpackage
+- Disabled ldplayer until bug #3415 gets fixed
 
 * Fri Aug 21 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0134-0.2.0133u3
 - Updated to 0.133u3
