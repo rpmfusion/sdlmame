@@ -1,4 +1,4 @@
-%define beta 0133u3
+%define beta 0133u4
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -18,7 +18,7 @@
 
 Name:           sdlmame
 Version:        0134
-Release:        0.2.%{?beta}%{?dist}
+Release:        0.3.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -154,7 +154,7 @@ install -pm 644 mame.ini %{buildroot}%{_sysconfdir}/mame
 install -pm 644 keymaps/* %{buildroot}%{_datadir}/mame/keymaps
 install -pm 644 ui.bdf %{SOURCE1} %{buildroot}%{_datadir}/mame/fonts
 install -pm 755 chdman jedutil ldplayer ldresample ldverify mame mamed romcmp \
-    testkeys %{buildroot}%{_bindir}
+    testkeys unidasm %{buildroot}%{_bindir}
 for tool in regrep runtest src2html srcclean
 do
 install -pm 755 $tool %{buildroot}%{_bindir}/mame-$tool
@@ -200,6 +200,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Aug 31 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0134-0.3.0133u4
+- Updated to 0.133u4
+- Added unidasm to the -tools subpackage
+
 * Fri Aug 21 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0134-0.2.0133u3
 - Updated to 0.133u3
 
