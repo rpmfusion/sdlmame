@@ -1,4 +1,4 @@
-%define beta 0133u4
+%define beta 0133u5
 
 %if "0%{?beta}" != "0"
 %define _version %{?beta}
@@ -18,7 +18,7 @@
 
 Name:           sdlmame
 Version:        0134
-Release:        0.3.%{?beta}%{?dist}
+Release:        0.4.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -200,6 +200,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Sep 07 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0134-0.4.0133u5
+- Updated to 0.133u5
+
 * Mon Aug 31 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0134-0.3.0133u4
 - Updated to 0.133u4
 - Added unidasm to the -tools subpackage
