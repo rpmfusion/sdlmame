@@ -1,24 +1,27 @@
-#define beta 0133u5
+# the debug build is disabled by default, please use --with debug to override
+%bcond_with debug
+
+%global beta 0134u1
 
 %if "0%{?beta}" != "0"
-%define _version %{?beta}
+%global _version %{?beta}
 %else
-%define _version %{version}
+%global _version %{version}
 %endif
 
 %ifarch x86_64
-%define arch_flags PTR64=1
+%global arch_flags PTR64=1
 %endif
 %ifarch ppc
-%define arch_flags BIGENDIAN=1
+%global arch_flags BIGENDIAN=1
 %endif
 %ifarch ppc64
-%define arch_flags BIGENDIAN=1 PTR64=1
+%global arch_flags BIGENDIAN=1 PTR64=1
 %endif
 
 Name:           sdlmame
-Version:        0134
-Release:        1%{?beta}%{?dist}
+Version:        0135
+Release:        0.1.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -63,13 +66,6 @@ Group:          Applications/Emulators
 Requires:       %{name} = %{version}-%{release}
 
 %description tools
-%{summary}.
-
-%package debug
-Summary:        Debug enabled version of sdlmame
-Group:          Applications/Emulators
-
-%description debug
 %{summary}.
 
 %package ldplayer
@@ -120,10 +116,13 @@ EOF
 %build
 make %{?_smp_mflags} %{?arch_flags} TARGET=ldplayer SYMBOLS=1 OPTIMIZE=2\
     OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
+%if %{with debug}
 make %{?_smp_mflags} %{?arch_flags} DEBUG=1 SYMBOLS=1 OPTIMIZE=2\
     OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
+%else
 make %{?_smp_mflags} %{?arch_flags} SYMBOLS=1 OPTIMIZE=2\
     OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
+%endif
 
 
 %install
@@ -155,8 +154,13 @@ install -d %{buildroot}%{_sysconfdir}/skel/.mame/sta
 install -pm 644 mame.ini %{buildroot}%{_sysconfdir}/mame
 install -pm 644 keymaps/* %{buildroot}%{_datadir}/mame/keymaps
 install -pm 644 ui.bdf %{SOURCE1} %{buildroot}%{_datadir}/mame/fonts
-install -pm 755 chdman jedutil ldplayer ldresample ldverify mame mamed romcmp \
-    testkeys %{buildroot}%{_bindir}
+%if %{with debug}
+install -pm 755 mamed %{buildroot}%{_bindir}/mamed
+%else
+install -pm 755 mame %{buildroot}%{_bindir}/mame
+%endif
+install -pm 755 chdman jedutil ldplayer ldresample ldverify romcmp testkeys \
+    %{buildroot}%{_bindir}
 for tool in regrep runtest src2html srcclean
 do
 install -pm 755 $tool %{buildroot}%{_bindir}/mame-$tool
@@ -172,7 +176,11 @@ rm -rf %{buildroot}
 %doc whatsnew*.txt SDLMAME.txt docs/*
 %config(noreplace) %{_sysconfdir}/mame/mame.ini
 %dir %{_sysconfdir}/mame
+%if %{with debug}
+%{_bindir}/mamed
+%else
 %{_bindir}/mame
+%endif
 %{_datadir}/mame
 %{_sysconfdir}/skel/.mame
 
@@ -190,11 +198,6 @@ rm -rf %{buildroot}
 %{_bindir}/mame-srcclean
 %{_bindir}/testkeys
 
-%files debug
-%defattr(-,root,root,-)
-%doc docs/license.txt
-%{_bindir}/mamed
-
 %files ldplayer
 %defattr(-,root,root,-)
 %doc docs/license.txt
@@ -202,6 +205,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Sep 25 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0135-0.1.0134u1
+- Updated to 0.134u1
+- Made the -debug build optional
+- Use %%global instead of %%define
+
 * Fri Sep 11 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0134-1
 - Updated to 0.134
 - Turned the ldplayer back on, disabled unidasm instead
