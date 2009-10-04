@@ -1,7 +1,7 @@
 # the debug build is disabled by default, please use --with debug to override
 %bcond_with debug
 
-%global beta 0134u1
+%global beta 0134u2
 
 %if "0%{?beta}" != "0"
 %global _version %{?beta}
@@ -21,7 +21,7 @@
 
 Name:           sdlmame
 Version:        0135
-Release:        0.1.%{?beta}%{?dist}
+Release:        0.2.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -205,6 +205,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Oct 04 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0135-0.2.0134u2
+- Updated to 0.134u2
+
 * Fri Sep 25 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0135-0.1.0134u1
 - Updated to 0.134u1
 - Made the -debug build optional
