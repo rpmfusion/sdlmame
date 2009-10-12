@@ -1,7 +1,7 @@
 # the debug build is disabled by default, please use --with debug to override
 %bcond_with debug
 
-%global beta 0134u2
+%global beta 0134u3
 
 %if "0%{?beta}" != "0"
 %global _version %{?beta}
@@ -21,11 +21,12 @@
 
 Name:           sdlmame
 Version:        0135
-Release:        0.2.%{?beta}%{?dist}
+Release:        0.3.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
-License:        MAME License
+#Files in src/lib/util and src/osd (except src/osd/sdl) are BSD
+License:        MAME License and BSD
 URL:            http://rbelmont.mameworld.info/?page_id=163
 Source0:        http://rbelmont.mameworld.info/%{name}%{_version}.zip
 #ui.bdc generated from ui.bdf
@@ -205,6 +206,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Oct 12 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0135-0.3.0134u3
+- Updated to 0.134u3
+- Added BSD to the License tag
+
 * Sun Oct 04 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0135-0.2.0134u2
 - Updated to 0.134u2
 
