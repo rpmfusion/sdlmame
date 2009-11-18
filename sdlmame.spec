@@ -13,15 +13,15 @@
 %global arch_flags PTR64=1
 %endif
 %ifarch ppc
-%global arch_flags BIGENDIAN=1
+%global arch_flags BIGENDIAN=1 ARCHOPTS=-Upowerpc
 %endif
 %ifarch ppc64
-%global arch_flags BIGENDIAN=1 PTR64=1
+%global arch_flags BIGENDIAN=1 PTR64=1 ARCHOPTS=-Upowerpc
 %endif
 
 Name:           sdlmame
 Version:        0135
-Release:        1%{?beta}%{?dist}
+Release:        2%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -34,7 +34,6 @@ Source1:        ui.bdc
 Patch0:         %{name}-warnings.patch
 Patch1:         %{name}-expat.patch
 Patch3:         %{name}-fortify.patch
-Patch4:         %{name}-0134-nounidasm.patch
 BuildRoot:      %{_tmppath}/%{name}-%{_version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  SDL-devel expat-devel zlib-devel libGL-devel gtk2-devel
@@ -69,12 +68,12 @@ Requires:       %{name} = %{version}-%{release}
 %description tools
 %{summary}.
 
-%package ldplayer
-Summary:        Standalone laserdisc player based on sdlmame
-Group:          Applications/Emulators
+#%package ldplayer
+#Summary:        Standalone laserdisc player based on sdlmame
+#Group:          Applications/Emulators
 
-%description ldplayer
-%{summary}.
+#%description ldplayer
+#%{summary}.
 
 
 %prep
@@ -82,7 +81,6 @@ Group:          Applications/Emulators
 %patch0 -p0 -b .warnings~
 %patch1 -p0 -b .expat~
 %patch3 -p0 -b .fortify
-%patch4 -p1 -b .nounidasm
 
 # Create mame.ini file
 cat > mame.ini << EOF
@@ -115,8 +113,8 @@ EOF
 
 
 %build
-make %{?_smp_mflags} %{?arch_flags} TARGET=ldplayer SYMBOLS=1 OPTIMIZE=2\
-    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
+#make %{?_smp_mflags} %{?arch_flags} TARGET=ldplayer SYMBOLS=1 OPTIMIZE=2\
+#    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
 %if %{with debug}
 make %{?_smp_mflags} %{?arch_flags} DEBUG=1 SYMBOLS=1 OPTIMIZE=2\
     OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
@@ -161,8 +159,8 @@ install -pm 755 mamed %{buildroot}%{_bindir}/mamed
 install -pm 755 mame %{buildroot}%{_bindir}/mame
 %endif
 install -pm 755 chdman jedutil ldplayer ldresample ldverify romcmp testkeys \
-    %{buildroot}%{_bindir}
-for tool in regrep runtest src2html srcclean
+    unidasm %{buildroot}%{_bindir}
+for tool in regrep runtest split src2html srcclean
 do
 install -pm 755 $tool %{buildroot}%{_bindir}/mame-$tool
 done
@@ -195,17 +193,24 @@ rm -rf %{buildroot}
 %{_bindir}/mame-regrep
 %{_bindir}/romcmp
 %{_bindir}/mame-runtest
+%{_bindir}/mame-split
 %{_bindir}/mame-src2html
 %{_bindir}/mame-srcclean
 %{_bindir}/testkeys
+%{_bindir}/unidasm
 
-%files ldplayer
-%defattr(-,root,root,-)
-%doc docs/license.txt
-%{_bindir}/ldplayer
+#%files ldplayer
+#%defattr(-,root,root,-)
+#%doc docs/license.txt
+#%{_bindir}/ldplayer
 
 
 %changelog
+* Wed Nov 18 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0135-2
+- Added split and unidasm to the -tools subpackage
+- Disabled ldplayer until mame bug 03415 gets fixed
+- Worked around gcc ppc preprocessor bug
+
 * Sun Nov 01 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0135-1
 - Updated to 0.135
 
