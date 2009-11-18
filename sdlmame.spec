@@ -158,7 +158,8 @@ install -pm 755 mamed %{buildroot}%{_bindir}/mamed
 %else
 install -pm 755 mame %{buildroot}%{_bindir}/mame
 %endif
-install -pm 755 chdman jedutil ldplayer ldresample ldverify romcmp testkeys \
+#install -pm 755 chdman jedutil ldplayer ldresample ldverify romcmp testkeys \
+install -pm 755 chdman jedutil ldresample ldverify romcmp testkeys \
     unidasm %{buildroot}%{_bindir}
 for tool in regrep runtest split src2html srcclean
 do
