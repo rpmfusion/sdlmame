@@ -1,7 +1,7 @@
 # the debug build is disabled by default, please use --with debug to override
 %bcond_with debug
 
-#global beta 0134u4
+%global beta 0135u1
 
 %if "0%{?beta}" != "0"
 %global _version %{?beta}
@@ -20,8 +20,8 @@
 %endif
 
 Name:           sdlmame
-Version:        0135
-Release:        1%{?beta}%{?dist}
+Version:        0136
+Release:        0.1.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -34,7 +34,6 @@ Source1:        ui.bdc
 Patch0:         %{name}-warnings.patch
 Patch1:         %{name}-expat.patch
 Patch3:         %{name}-fortify.patch
-Patch4:         %{name}-0134-nounidasm.patch
 BuildRoot:      %{_tmppath}/%{name}-%{_version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  SDL-devel expat-devel zlib-devel libGL-devel gtk2-devel
@@ -69,12 +68,12 @@ Requires:       %{name} = %{version}-%{release}
 %description tools
 %{summary}.
 
-%package ldplayer
-Summary:        Standalone laserdisc player based on sdlmame
-Group:          Applications/Emulators
+#%package ldplayer
+#Summary:        Standalone laserdisc player based on sdlmame
+#Group:          Applications/Emulators
 
-%description ldplayer
-%{summary}.
+#%description ldplayer
+#%{summary}.
 
 
 %prep
@@ -82,7 +81,6 @@ Group:          Applications/Emulators
 %patch0 -p0 -b .warnings~
 %patch1 -p0 -b .expat~
 %patch3 -p0 -b .fortify
-%patch4 -p1 -b .nounidasm
 
 # Create mame.ini file
 cat > mame.ini << EOF
@@ -115,8 +113,8 @@ EOF
 
 
 %build
-make %{?_smp_mflags} %{?arch_flags} TARGET=ldplayer SYMBOLS=1 OPTIMIZE=2\
-    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
+#make %{?_smp_mflags} %{?arch_flags} TARGET=ldplayer SYMBOLS=1 OPTIMIZE=2\
+#    OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
 %if %{with debug}
 make %{?_smp_mflags} %{?arch_flags} DEBUG=1 SYMBOLS=1 OPTIMIZE=2\
     OPT_FLAGS='%{optflags} -DINI_PATH="\"%{_sysconfdir}/mame;\""'
@@ -160,9 +158,10 @@ install -pm 755 mamed %{buildroot}%{_bindir}/mamed
 %else
 install -pm 755 mame %{buildroot}%{_bindir}/mame
 %endif
-install -pm 755 chdman jedutil ldplayer ldresample ldverify romcmp testkeys \
-    %{buildroot}%{_bindir}
-for tool in regrep runtest src2html srcclean
+#install -pm 755 chdman jedutil ldplayer ldresample ldverify romcmp testkeys \
+install -pm 755 chdman jedutil ldresample ldverify romcmp testkeys \
+    unidasm %{buildroot}%{_bindir}
+for tool in regrep runtest split src2html srcclean
 do
 install -pm 755 $tool %{buildroot}%{_bindir}/mame-$tool
 done
@@ -195,17 +194,28 @@ rm -rf %{buildroot}
 %{_bindir}/mame-regrep
 %{_bindir}/romcmp
 %{_bindir}/mame-runtest
+%{_bindir}/mame-split
 %{_bindir}/mame-src2html
 %{_bindir}/mame-srcclean
 %{_bindir}/testkeys
+%{_bindir}/unidasm
 
-%files ldplayer
-%defattr(-,root,root,-)
-%doc docs/license.txt
-%{_bindir}/ldplayer
+#%files ldplayer
+#%defattr(-,root,root,-)
+#%doc docs/license.txt
+#%{_bindir}/ldplayer
 
 
 %changelog
+* Fri Nov 20 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0136-0.1.0135u1
+- Updated to 0.135u1
+- The preprocessor workaround is now included in the makefile
+
+* Wed Nov 18 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0135-2
+- Added split and unidasm to the -tools subpackage
+- Disabled ldplayer until mame bug 03415 gets fixed
+- Worked around gcc ppc preprocessor bug
+
 * Sun Nov 01 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0135-1
 - Updated to 0.135
 
