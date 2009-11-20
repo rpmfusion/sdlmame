@@ -1,7 +1,7 @@
 # the debug build is disabled by default, please use --with debug to override
 %bcond_with debug
 
-#global beta 0134u4
+%global beta 0135u1
 
 %if "0%{?beta}" != "0"
 %global _version %{?beta}
@@ -13,15 +13,15 @@
 %global arch_flags PTR64=1
 %endif
 %ifarch ppc
-%global arch_flags BIGENDIAN=1 ARCHOPTS=-Upowerpc
+%global arch_flags BIGENDIAN=1
 %endif
 %ifarch ppc64
-%global arch_flags BIGENDIAN=1 PTR64=1 ARCHOPTS=-Upowerpc
+%global arch_flags BIGENDIAN=1 PTR64=1
 %endif
 
 Name:           sdlmame
-Version:        0135
-Release:        2%{?beta}%{?dist}
+Version:        0136
+Release:        0.1.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -207,6 +207,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Nov 20 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0136-0.1.0135u1
+- Updated to 0.135u1
+- The preprocessor workaround is now included in the makefile
+
 * Wed Nov 18 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0135-2
 - Added split and unidasm to the -tools subpackage
 - Disabled ldplayer until mame bug 03415 gets fixed
