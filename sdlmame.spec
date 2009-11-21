@@ -13,10 +13,10 @@
 %global arch_flags PTR64=1
 %endif
 %ifarch ppc
-%global arch_flags powerpc=1
+%global arch_flags powerpc=1 BIGENDIAN=1
 %endif
 %ifarch ppc64
-%global arch_flags powerpc=1 PTR64=1
+%global arch_flags powerpc=1 BIGENDIAN=1 PTR64=1
 %endif
 
 Name:           sdlmame
