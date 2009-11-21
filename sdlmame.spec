@@ -13,10 +13,10 @@
 %global arch_flags PTR64=1
 %endif
 %ifarch ppc
-%global arch_flags BIGENDIAN=1
+%global arch_flags powerpc=1
 %endif
 %ifarch ppc64
-%global arch_flags BIGENDIAN=1 PTR64=1
+%global arch_flags powerpc=1 PTR64=1
 %endif
 
 Name:           sdlmame
@@ -207,9 +207,10 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Fri Nov 20 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0136-0.1.0135u1
+* Sat Nov 21 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0136-0.1.0135u1
 - Updated to 0.135u1
 - The preprocessor workaround is now included in the makefile
+- Use correct variable for ppc build
 
 * Wed Nov 18 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0135-2
 - Added split and unidasm to the -tools subpackage
