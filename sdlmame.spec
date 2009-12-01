@@ -1,7 +1,7 @@
 # the debug build is disabled by default, please use --with debug to override
 %bcond_with debug
 
-%global beta 0135u1
+%global beta 0135u2
 
 %if "0%{?beta}" != "0"
 %global _version %{?beta}
@@ -21,7 +21,7 @@
 
 Name:           sdlmame
 Version:        0136
-Release:        0.1.%{?beta}%{?dist}
+Release:        0.2.%{?beta}%{?dist}
 Summary:        SDL Multiple Arcade Machine Emulator
 
 Group:          Applications/Emulators
@@ -207,6 +207,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Nov 30 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0136-0.2.0135u2
+- Updated to 0.135u2
+
 * Sat Nov 21 2009 Julian Sikorski <belegdol[at]gmail[dot]com> - 0136-0.1.0135u1
 - Updated to 0.135u1
 - The preprocessor workaround is now included in the makefile
