@@ -173,7 +173,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%doc whatsnew*.txt SDLMAME.txt docs/*
+%doc SDLMAME.txt docs/*
 %config(noreplace) %{_sysconfdir}/mame/mame.ini
 %dir %{_sysconfdir}/mame
 %if %{with debug}
